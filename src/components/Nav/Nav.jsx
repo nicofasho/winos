@@ -5,8 +5,8 @@ class Nav extends Component {
   render() {
     return (
       <div>
-        Nav
         <Link to="/dashboard">Winos</Link>
+        <Link to="/" onClick={this.props.handleLogout} >Sign Out</Link>
       </div>
     );
   }

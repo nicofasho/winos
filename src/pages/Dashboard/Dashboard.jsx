@@ -1,10 +1,11 @@
 import React from "react";
 import Nav from "../../components/Nav/Nav";
+import { PromiseProvider } from "mongoose";
 
-const Dashboard = () => {
+const Dashboard = (props) => {
   return (
     <div>
-      <Nav />
+      <Nav handleLogout={props.handleLogout} />
       <h2>Dashboard Page</h2>
     </div>
   );

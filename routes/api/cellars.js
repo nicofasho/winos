@@ -2,6 +2,7 @@ const express = require("express");
 const router = express.Router();
 const cellarsCtrl = require("../../controllers/cellars");
 
+router.use(require('../../config/auth'));
 // Cellar Routes
 router.get("/", cellarsCtrl.cellarIndex);
 router.get("/create", cellarsCtrl.createCellar);
@@ -19,3 +20,8 @@ router.get('/:cellarId/bottles/:bottleId', cellarsCtrl.createBottle);
 router.post("/:id", cellarsCtrl.addBottle);
 
 module.exports = router;
+
+function checkAuth(req, res, next) {
+  if (req.user) return next();
+  return res.status(401).json({msg: 'Not Authorized'});
+}
