@@ -4,8 +4,7 @@ import userService from '../../utils/userService';
 
 class SignupForm extends Component {
   state = { 
-    name: '',
-    email: '',
+    username: '',
     password: '',
     passwordConf: ''
    };
