@@ -1,6 +1,6 @@
 const express = require("express");
 const router = express.Router();
-const cellarsCtrl = require("../controllers/cellars");
+const cellarsCtrl = require("../../controllers/cellars");
 
 // Cellar Routes
 router.get("/", cellarsCtrl.cellarIndex);
