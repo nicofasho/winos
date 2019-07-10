@@ -22,7 +22,7 @@ const cellarSchema = new Schema(
     bottles: [
       {
         type: Schema.Types.ObjectId,
-        ref: "Bottle"
+        ref: "Bottle",
       }
     ]
   },
@@ -31,6 +31,15 @@ const cellarSchema = new Schema(
 
 cellarSchema.virtual("capacity").get(function() {
   return this.width * this.height;
+});
+
+cellarSchema.pre('save', function(next){
+  const size = this.capacity;
+  console.log(size);
+  for(let i = 0; i < size; i += 1) {
+    if(!this.bottles[i]) this.bottles[i] = null;
+  }
+  next();
 });
 
 module.exports = mongoose.model("Cellar", cellarSchema);
