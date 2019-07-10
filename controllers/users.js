@@ -1,5 +1,5 @@
-const User = require('../models/user');
-const jwt = require('jsonwebtoken');
+const User = require("../models/user");
+const jwt = require("jsonwebtoken");
 const SECRET = process.env.SECRET;
 
 module.exports = {
@@ -29,21 +29,25 @@ async function signup(req, res) {
   try {
     await user.save();
     const token = createJWT(user);
+    console.log(token);
     res.json({ token });
   } catch (err) {
     // Probably a duplicate email
     res.status(400).json(err);
   }
+  // User.create(req.body).then(user => {
+  //   console.log(user);
+  //   const token = createJWT(user);
+  //   res.json({ token });
+  // }).catch(err => res.status(400).json(err));
 }
-
-
 
 /* helper functions */
 
 function createJWT(user) {
   return jwt.sign(
     {user}, // data payload
-    SECRET,
-    {expiresIn: '24h'}
+    `${SECRET}`,
+    { expiresIn: "24h" }
   );
 }
