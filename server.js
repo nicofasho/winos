@@ -1,3 +1,6 @@
+require('dotenv').config();
+require('./config/database');
+
 const express = require('express');
 const path = require('path');
 const favicon = require('serve-favicon');
@@ -7,8 +10,6 @@ const userRouter = require('./routes/api/users');
 
 const app = express();
 
-require('dotenv').config();
-require('./config/database');
 
 app.use(logger('dev'));
 app.use(express.json());

@@ -6,6 +6,7 @@ const Dashboard = (props) => {
     <div>
       <Nav handleLogout={props.handleLogout} />
       <h2>Dashboard Page</h2>
+      <p>Hello {props.user.username}</p>
     </div>
   );
 };

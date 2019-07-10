@@ -4,8 +4,9 @@ import userService from '../../utils/userService';
 
 class LoginPage extends Component {
   state = {
-    email: "",
-    pw: ""
+    username: "",
+    password: "",
+    updateMessage: ""
   };
 
   handleChange = e => {
@@ -21,7 +22,8 @@ class LoginPage extends Component {
       this.props.handleSignupOrLogin();
       this.props.history.push('/dashboard');
     } catch (err) {
-      this.props.updateMessage('Invalid Credentials');
+      // this.props.updateMessage('Invalid Credentials');
+      this.setState({updateMessage: "Invalid Credentials"});
     }
   }
 
@@ -29,7 +31,27 @@ class LoginPage extends Component {
     return (
       <div>
         <h2>Login</h2>
-        <Link to="/dashboard">Go</Link>
+        <form onSubmit={this.handleSubmit} >
+          <div>
+            <div>
+              <label htmlFor="username">Username:</label>
+              <input type="text" placeholder="Username" value={this.state.username} name="username" onChange={this.handleChange} />
+            </div>
+          </div>
+          <div>
+            <div>
+              <label htmlFor="password">Password:</label>
+              <input type="password" placeholder="Password" value={this.state.password} name="password" onChange={this.handleChange} />
+            </div>
+          </div>
+          <div>
+            <div>
+              <button>Log In</button>
+              <Link to="/">Cancel</Link>
+            </div>
+          </div>
+        </form>
+        <p>{this.state.updateMessage}</p>
       </div>
     );
   }

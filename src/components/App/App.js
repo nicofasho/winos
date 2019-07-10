@@ -32,7 +32,12 @@ class App extends Component {
           <Route
             exact
             path="/login"
-            render={props => <LoginPage {...props} />}
+            render={({ history }) => (
+              <LoginPage
+                history={history}
+                handleSignupOrLogin={this.handleSignupOrLogin}
+              />
+            )}
           />
           <Route
             exact
