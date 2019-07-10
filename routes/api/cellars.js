@@ -5,9 +5,7 @@ const cellarsCtrl = require("../../controllers/cellars");
 router.use(require('../../config/auth'));
 // Cellar Routes
 router.get("/", cellarsCtrl.cellarIndex);
-router.get("/create", cellarsCtrl.createCellar);
-router.get("/:id/edit", cellarsCtrl.editCellar);
-router.post("/", cellarsCtrl.addCellar);
+router.post("/", cellarsCtrl.createCellar);
 router.put("/:id", cellarsCtrl.updateCellar);
 router.delete("/:id", cellarsCtrl.deleteCellar);
 
