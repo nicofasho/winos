@@ -5,7 +5,7 @@ import LandingPage from "../../pages/LandingPage/LandingPage";
 import LoginPage from "../../pages/LoginPage/LoginPage";
 import SignupPage from "../../pages/SignupPage/SignupPage";
 import userService from "../../utils/userService";
-import tokenService from "../../utils/tokenService";
+// import tokenService from "../../utils/tokenService";
 
 class App extends Component {
   constructor(props) {

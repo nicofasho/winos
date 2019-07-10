@@ -8,7 +8,8 @@ const userSchema = new Schema(
   {
     username: {
       type: String,
-      required: true
+      required: true,
+      unique: true
     },
     password: {
       type: String,
@@ -24,6 +25,14 @@ const userSchema = new Schema(
   { timestamps: true }
 );
 
+userSchema.set('toJSON', {
+  transform: function(doc, ret) {
+    // remove password when serializing doc
+    delete ret.password;
+    return ret;
+  }
+});
+
 userSchema.pre('save', function(next) {
   const user = this;
   if (!user.isModified('password')) return next();
@@ -37,7 +46,10 @@ userSchema.pre('save', function(next) {
 });
 
 userSchema.methods.comparePassword = function(tryPassword, cb) {
-  bcrypt.compare(tryPassword, this.password, cb);
+  bcrypt.compare(tryPassword, this.password, function(err, isMatch) {
+    if (err) return cb(err);
+    cb(null, isMatch);
+  });
 };
 
 module.exports = mongoose.model("User", userSchema);
