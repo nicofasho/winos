@@ -25,7 +25,7 @@ const userSchema = new Schema(
   { timestamps: true }
 );
 
-userSchema.set('toJSON', {
+userSchema.set("toJSON", {
   transform: function(doc, ret) {
     // remove password when serializing doc
     delete ret.password;
@@ -33,9 +33,9 @@ userSchema.set('toJSON', {
   }
 });
 
-userSchema.pre('save', function(next) {
+userSchema.pre("save", function(next) {
   const user = this;
-  if (!user.isModified('password')) return next();
+  if (!user.isModified("password")) return next();
   // password has been changed - salt and hash it
   bcrypt.hash(user.password, SALT_ROUNDS, function(err, hash) {
     if (err) return next(err);

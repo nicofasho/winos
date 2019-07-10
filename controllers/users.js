@@ -1,7 +1,11 @@
-const User = require("../models/user");
-const jwt = require("jsonwebtoken");
-
+const User = require('../models/user');
+const jwt = require('jsonwebtoken');
 const SECRET = process.env.SECRET;
+
+module.exports = {
+  login,
+  signup
+};
 
 async function login(req, res) {
   try {
@@ -21,26 +25,25 @@ async function login(req, res) {
 }
 
 async function signup(req, res) {
-  console.log(req.body);
   const user = new User(req.body);
   try {
-    console.log('user: ', user);
     await user.save();
     const token = createJWT(user);
-    console.log("token: ", token);
     res.json({ token });
   } catch (err) {
+    // Probably a duplicate email
     res.status(400).json(err);
   }
 }
 
-module.exports = {
-  login,
-  signup
-};
+
 
 /* helper functions */
 
 function createJWT(user) {
-  return jwt.sign({ user }, SECRET, { expiresIn: "24h" });
+  return jwt.sign(
+    {user}, // data payload
+    SECRET,
+    {expiresIn: '24h'}
+  );
 }
