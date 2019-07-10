@@ -24,16 +24,15 @@ function createCellar(req, res) {
 }
 
 function updateCellar(req, res) {
-  Cellar.findOneAndUpdate(req.params.id, req.body, { new: true })
+  Cellar.findOneAndUpdate({_id: req.params.id}, req.body, { new: true })
     .then(cellar => res.json(cellar))
     .catch(err => res.status(400).json(err));
-  // Cellar.findById(req.params.id)
-  //   .then(async cellar => await cellar.save())
-  //   .catch(err => res.status(400).json(err));
 }
 
 function deleteCellar(req, res) {
-  return;
+  Cellar.findOneAndDelete({_id: req.params.id})
+    .then(cellar => res.json(cellar))
+    .catch(err => res.status(400).json(err));
 }
 
 function bottleDetail(req, res) {
