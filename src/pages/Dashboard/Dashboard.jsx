@@ -1,14 +1,30 @@
-import React from "react";
+import React, { Component } from 'react';
 import Nav from "../../components/Nav/Nav";
+import cellarService from '../../utils/cellarService';
 
-const Dashboard = (props) => {
-  return (
+class Dashboard extends Component {
+
+  async componentDidMount() {
+    const cellars = await cellarService.cellarIndex();
+    this.props.handleUpdateCellars(cellars);
+    console.log('cellars: ', cellars);
+  }
+
+  render() { 
+
+    const cellarRows = this.props.cellars.map((cellar, idx) => (
+      <div>{cellar.name}</div>
+    ));
+
+    return (
     <div>
-      <Nav handleLogout={props.handleLogout} />
+      <Nav handleLogout={this.props.handleLogout} />
       <h2>Dashboard Page</h2>
-      <p>Hello {props.user.username}</p>
+      <p>Hello {this.props.user.username}</p>
+      {cellarRows}
     </div>
   );
-};
-
+  }
+}
+ 
 export default Dashboard;

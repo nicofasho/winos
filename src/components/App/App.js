@@ -5,14 +5,20 @@ import LandingPage from "../../pages/LandingPage/LandingPage";
 import LoginPage from "../../pages/LoginPage/LoginPage";
 import SignupPage from "../../pages/SignupPage/SignupPage";
 import userService from "../../utils/userService";
+import cellarService from '../../utils/cellarService';
 // import tokenService from "../../utils/tokenService";
 
 class App extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      user: userService.getUser()
+      user: userService.getUser(),
+      cellars: []
     };
+  }
+
+  async populateCellars() {
+    await cellarService.cellarIndex();
   }
 
   handleLogout = () => {
@@ -23,6 +29,10 @@ class App extends Component {
   handleSignupOrLogin = () => {
     this.setState({ user: userService.getUser() });
   };
+
+  handleUpdateCellars = (cellars) => {
+    this.setState({ cellars });
+  }
 
   render() {
     return (
@@ -42,7 +52,7 @@ class App extends Component {
           <Route
             exact
             path="/signup"
-            render={() => (
+            render={(props) => (
               <SignupPage
                 {...props}
                 handleSignupOrLogin={this.handleSignupOrLogin}
@@ -52,12 +62,14 @@ class App extends Component {
           <Route
             exact
             path="/dashboard"
-            render={() =>
+            render={(props) =>
               userService.getUser() ? (
                 <Dashboard
                   {...props}
                   user={this.state.user}
                   handleLogout={this.handleLogout}
+                  handleUpdateCellars={this.handleUpdateCellars}
+                  cellars={this.state.cellars}
                 />
               ) : (
                 <Redirect to="/login" />

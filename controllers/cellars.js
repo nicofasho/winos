@@ -1,24 +1,35 @@
-const Cellar = require('../models/cellar');
-const Bottle = require('../models/bottle');
+const Cellar = require("../models/cellar");
+const Bottle = require("../models/bottle");
+const User = require("../models/user");
 
 function cellarIndex(req, res) {
-  return;
+  console.log(req.user._id);
+  User.findById(req.user._id)
+    .populate("cellars")
+    .then(user => res.status(200).json(user.cellars));
 }
 
 function createCellar(req, res) {
-  return;
-}
-
-function editCellar(req, res) {
-  return;
-}
-
-function addCellar(req, res) {
-  return;
+  User.findById(req.user._id).then(async user => {
+    const cellar = new Cellar(req.body);
+    try {
+      await cellar.save();
+      user.cellars.push(cellar);
+      await user.save();
+      res.json(user);
+    } catch (err) {
+      res.status(400).json(err);
+    }
+  });
 }
 
 function updateCellar(req, res) {
-  return;
+  Cellar.findOneAndUpdate(req.params.id, req.body, { new: true })
+    .then(cellar => res.json(cellar))
+    .catch(err => res.status(400).json(err));
+  // Cellar.findById(req.params.id)
+  //   .then(async cellar => await cellar.save())
+  //   .catch(err => res.status(400).json(err));
 }
 
 function deleteCellar(req, res) {
@@ -52,8 +63,6 @@ function addBottle(req, res) {
 module.exports = {
   cellarIndex,
   createCellar,
-  editCellar,
-  addCellar,
   updateCellar,
   deleteCellar,
   bottleDetail,
@@ -62,4 +71,4 @@ module.exports = {
   deleteBottle,
   createBottle,
   addBottle
-}
+};
