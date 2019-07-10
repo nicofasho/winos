@@ -42,7 +42,7 @@ class App extends Component {
           <Route
             exact
             path="/signup"
-            render={props => (
+            render={() => (
               <SignupPage
                 {...props}
                 handleSignupOrLogin={this.handleSignupOrLogin}
@@ -52,7 +52,7 @@ class App extends Component {
           <Route
             exact
             path="/dashboard"
-            render={props =>
+            render={() =>
               userService.getUser() ? (
                 <Dashboard
                   {...props}

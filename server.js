@@ -17,7 +17,7 @@ app.use(express.json());
 app.use(favicon(path.join(__dirname, 'build', 'favicon.ico')));
 app.use(express.static(path.join(__dirname, 'build')));
 
-// app.use(require('./config/auth'));
+app.use(require('./config/auth'));
 app.use('/api/cellars', cellarRouter);
 app.use('/api/users', userRouter);
 
