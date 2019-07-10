@@ -35,18 +35,13 @@ async function signup(req, res) {
     // Probably a duplicate email
     res.status(400).json(err);
   }
-  // User.create(req.body).then(user => {
-  //   console.log(user);
-  //   const token = createJWT(user);
-  //   res.json({ token });
-  // }).catch(err => res.status(400).json(err));
 }
 
 /* helper functions */
 
 function createJWT(user) {
   return jwt.sign(
-    {user}, // data payload
+    { user }, // data payload
     `${SECRET}`,
     { expiresIn: "24h" }
   );
