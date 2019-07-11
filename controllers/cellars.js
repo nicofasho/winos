@@ -3,10 +3,13 @@ const Bottle = require("../models/bottle");
 const User = require("../models/user");
 
 function cellarIndex(req, res) {
-  console.log(req.user._id);
   User.findById(req.user._id)
-    .populate("cellars")
-    .then(user => res.status(200).json(user.cellars));
+    .populate({
+      path: "cellars",
+      populate: { path: "bottles" }
+    })
+    .then(user => res.status(200).json(user.cellars))
+    .catch(err => res.status(400).json(err));
 }
 
 function createCellar(req, res) {
@@ -24,39 +27,69 @@ function createCellar(req, res) {
 }
 
 function updateCellar(req, res) {
-  Cellar.findOneAndUpdate({_id: req.params.id}, req.body, { new: true })
+  Cellar.findOneAndUpdate({ _id: req.params.id }, req.body, { new: true })
     .then(cellar => res.json(cellar))
     .catch(err => res.status(400).json(err));
 }
 
 function deleteCellar(req, res) {
-  Cellar.findOneAndDelete({_id: req.params.id})
+  Cellar.findOneAndDelete({ _id: req.params.id })
     .then(cellar => res.json(cellar))
     .catch(err => res.status(400).json(err));
 }
 
 function bottleDetail(req, res) {
-  return;
-}
-
-function editBottle(req, res) {
-  return;
+  Cellar.findById(req.params.cellarId)
+    .populate("bottles")
+    .then(cellar => {
+      return res.json(cellar.bottles[req.params.slotId]);
+    })
+    .catch(err => res.status(400).json(err));
 }
 
 function updateBottle(req, res) {
-  return;
+  Cellar.findById(req.params.cellarId)
+    .then(cellar => {
+      Bottle.findOneAndUpdate({ _id: req.params.bottleId }, req.body, {
+        new: true
+      })
+        .then(async bottle => {
+          cellar.bottles.set(req.params.slotId, bottle);
+          await cellar.save();
+          return res.json(bottle);
+        })
+        .catch(err => res.status(400).json(err));
+    })
+    .catch(err => res.status(400).json(err));
 }
 
 function deleteBottle(req, res) {
-  return;
+  Cellar.findById(req.params.cellarId)
+    .then(async cellar => {
+      cellar.bottles.set(req.params.slotId, null);
+      await cellar.save();
+      return Bottle.findOneAndDelete({ _id: req.params.bottleId })
+        .then(bottle => res.json(bottle))
+        .catch(err => res.status(400).json(err));
+    })
+    .catch(err => res.status(400).json(err));
 }
 
-function createBottle(req, res) {
-  return;
-}
-
-function addBottle(req, res) {
-  return;
+async function createBottle(req, res) {
+  const bottle = new Bottle(req.body);
+  bottle.slot = req.params.slotId;
+  try {
+    await bottle.save();
+    Cellar.findById(req.params.cellarId)
+      .then(async cellar => {
+        cellar.bottles.set(req.params.slotId, bottle);
+        await cellar.save();
+        return res.json(cellar);
+      })
+      .catch(err => res.status(400).json(err));
+  } catch (err) {
+    res.status(400).json(err);
+  }
 }
 
 module.exports = {
@@ -65,9 +98,7 @@ module.exports = {
   updateCellar,
   deleteCellar,
   bottleDetail,
-  editBottle,
   updateBottle,
   deleteBottle,
-  createBottle,
-  addBottle
+  createBottle
 };
