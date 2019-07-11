@@ -22,7 +22,7 @@ const cellarSchema = new Schema(
     bottles: [
       {
         type: Schema.Types.ObjectId,
-        ref: "Bottle",
+        ref: "Bottle"
       }
     ]
   },

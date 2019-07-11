@@ -10,12 +10,10 @@ router.put("/:id", cellarsCtrl.updateCellar);
 router.delete("/:id", cellarsCtrl.deleteCellar);
 
 // Bottle Routes
-router.get("/:cellarId/bottles/:bottleId", cellarsCtrl.bottleDetail);
-router.get('/:cellarId/bottles/:bottleId/edit', cellarsCtrl.editBottle);
-router.put("/:cellarId/bottles/:bottleId", cellarsCtrl.updateBottle);
-router.delete("/:cellarId/bottles/:bottleId", cellarsCtrl.deleteBottle);
-router.get('/:cellarId/bottles/:bottleId', cellarsCtrl.createBottle);
-router.post("/:id", cellarsCtrl.addBottle);
+router.get("/:cellarId/:slotId/bottles/:bottleId", cellarsCtrl.bottleDetail);
+router.put("/:cellarId/:slotId/bottles/:bottleId", cellarsCtrl.updateBottle);
+router.delete("/:cellarId/:slotId/bottles/:bottleId", cellarsCtrl.deleteBottle);
+router.post("/:cellarId/:slotId", cellarsCtrl.createBottle);
 
 module.exports = router;
 

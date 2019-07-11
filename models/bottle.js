@@ -15,7 +15,8 @@ const bottleSchema = new Schema(
     type: String,
     color: String,
     winery: String,
-    bestTemperature: Number
+    bestTemperature: Number,
+    slot: Number
   },
   { timestamps: true }
 );
