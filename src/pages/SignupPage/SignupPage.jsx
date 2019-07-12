@@ -15,7 +15,6 @@ class SignupPage extends Component {
   render() {
     return (
       <div>
-        <Link to="/dashboard">Go</Link>
         <SignupForm {...this.props} updateMessage={this.updateMessage} />
         <p>{this.state.message}</p>
       </div>

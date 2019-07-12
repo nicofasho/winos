@@ -6,7 +6,7 @@ import LoginPage from "../../pages/LoginPage/LoginPage";
 import SignupPage from "../../pages/SignupPage/SignupPage";
 import userService from "../../utils/userService";
 import cellarService from '../../utils/cellarService';
-// import tokenService from "../../utils/tokenService";
+import './App.css';
 
 class App extends Component {
   constructor(props) {
