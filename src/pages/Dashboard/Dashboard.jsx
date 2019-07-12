@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import Nav from "../../components/Nav/Nav";
 import cellarService from '../../utils/cellarService';
+import CellarRow from '../../components/CellarRow/CellarRow';
 
 class Dashboard extends Component {
 
@@ -13,7 +14,7 @@ class Dashboard extends Component {
   render() { 
 
     const cellarRows = this.props.cellars.map((cellar, idx) => (
-      <div>{cellar.name}</div>
+      <CellarRow cellar={cellar} />
     ));
 
     return (

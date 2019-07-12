@@ -1,0 +1,18 @@
+.Cellar {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  background-color: gray;
+  border-radius: 10px;
+}
+
+.BottleRow {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.Bottle {
+  border-radius: 50%;
+}
