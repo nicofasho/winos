@@ -14,13 +14,13 @@ class Dashboard extends Component {
   render() { 
 
     const cellarRows = this.props.cellars.map((cellar, idx) => (
-      <CellarRow cellar={cellar} />
+      <CellarRow key={idx} cellar={cellar} />
     ));
 
     return (
     <div>
       <Nav handleLogout={this.props.handleLogout} />
-      <h2>Dashboard Page</h2>
+      <h2>Dashboard</h2>
       <p>Hello {this.props.user.username}</p>
       {cellarRows}
     </div>

@@ -1,25 +1,42 @@
-import React, { Component } from 'react';
-import Bottle from '../Bottle/Bottle';
+import React, { Component } from "react";
+import BottleRow from "../../components/BottleRow/BottleRow";
+import Bottle from '../../components/Bottle/Bottle';
 
 class Cellar extends Component {
-  render() { 
-    const cellarWidth = this.props.cellar.width;
-    const cellarHeight = this.props.cellar.height;
-    const bottles = this.props.cellar.bottles;
-    let cellarLayout = bottles.map((bottle, idx) => {
-      if (cellarWidth % idx === 0) return `<div className="BottleRow"><Bottle className="Bottle" bottle={bottle} />`;
-      if (cellarWidth % idx === cellarWidth - 1) return `<Bottle className="Bottle" bottle={bottle} /></div>`;
-      return `<Bottle className="Bottle" bottle={bottle} />`;
-    }).join('');
 
-    console.log('cellarLayout: ', cellarLayout);
+  generateSingleRow = (idx) => {
+    return <BottleRow key={idx} bottles={this.props.cellar.bottles} />;
+  }
 
-    return ( 
+  generateBottleRows = () => {
+    for (let i = 1; i <= this.props.cellar.height; i += 1) {
+      this.generateSingleRow(i);
+    }
+  }
+
+  render() {
+
+    const height = this.props.height;
+    const width = this.props.width;
+
+    // const bottles = this.props.cellar.bottles.map((bottle, idx) => {
+    //   let remainder = idx % width;
+    //   if (remainder === 0) {
+    //     return `<div className="bottleRow"><Bottle key=${idx} bottle=${bottle} />`;
+    //   }
+    //   if (remainder === width - 1) {
+    //     return `<Bottle key=${idx} bottle=${bottle} /></div>`;
+    //   }
+    //   return `<Bottle key=${idx} bottle=${bottle} />`;
+    // }).join('');
+    // console.log(bottles);
+
+    return (
       <div className="Cellar">
-        {cellarLayout}
+        {this.generateBottleRows()}
       </div>
-     );
+    );
   }
 }
- 
+
 export default Cellar;

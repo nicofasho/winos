@@ -1,14 +1,13 @@
 import React, { Component } from "react";
 
-class Bottle extends Component {
-  state = {};
+class BottleRow extends Component {
   render() {
     return (
-      <div className="Bottle">
+      <div className="BottleRow">
         <div />
       </div>
     );
   }
 }
 
-export default Bottle;
+export default BottleRow;

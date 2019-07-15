@@ -33,13 +33,13 @@ cellarSchema.virtual("capacity").get(function() {
   return this.width * this.height;
 });
 
-cellarSchema.pre('save', function(next){
+cellarSchema.pre("save", function(next) {
   const size = this.capacity;
   console.log(size);
-  for(let i = 0; i < size; i += 1) {
-    if(!this.bottles[i]) this.bottles[i] = null;
+  for (let i = 0; i < size; i += 1) {
+    if (!this.bottles[i]) this.bottles[i] = null;
   }
   next();
 });
 
-module.exports = mongoose.model("Cellar", cellarSchema);
+module.exports = mongoose.model('Cellar', cellarSchema);
