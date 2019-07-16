@@ -4,6 +4,11 @@ import cellarService from "../../utils/cellarService";
 import CellarRow from "../../components/CellarRow/CellarRow";
 
 class Dashboard extends Component {
+
+  componentDidMount() {
+    this.props.handleUpdateCellars();
+  }
+
   render() {
     const cellarRows = this.props.cellars.map((cellar, idx) => (
       <CellarRow
