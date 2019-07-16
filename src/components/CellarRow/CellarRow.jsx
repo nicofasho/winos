@@ -28,7 +28,6 @@ class CellarRow extends Component {
   hideForms = () => {
     this.setState({
       showCellarEdit: false,
-      showBottleInfo: false,
       showBottleForm: false
     });
   };
@@ -53,10 +52,12 @@ class CellarRow extends Component {
                 handleUpdateCellars={this.props.handleUpdateCellars}
               />
             ) : null}
-            {this.state.showBottleInfo ? (
+            {this.state.showBottleForm ? (
               <BottleForm
                 bottle={this.state.selBottle}
                 hideForms={this.hideForms}
+                cellarId={this.props.cellar._id}
+                slot={this.state.selBottleSlot}
               />
             ) : null}
           </div>

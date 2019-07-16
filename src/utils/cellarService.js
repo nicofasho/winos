@@ -67,7 +67,7 @@ function bottleDetails(cellarId, slotId, bottleId) {
 function createOrUpdateBottle(cellarId, slotId, bottleId) {
   return fetch(
     `${BASE_URL}${cellarId}/${slotId}/${
-      bottleId ? "/bottles/" + bottleId : null
+      bottleId ? "/bottles/" + bottleId : ''
     }`, {
       method: `${bottleId ? 'PUT' : 'POST'}`,
       headers: new Headers({
