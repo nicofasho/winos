@@ -1,13 +1,10 @@
 import React, { Component } from "react";
+import "./Bottle.css";
 
 class Bottle extends Component {
-  state = {};
   render() {
-    return (
-      <div className="Bottle">
-        <div />
-      </div>
-    );
+
+    return <div className="Bottle" />;
   }
 }
 

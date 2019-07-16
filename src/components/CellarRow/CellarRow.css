@@ -1,3 +1,7 @@
 .CellarRow {
-  
+  padding: 20px;
+}
+
+.CellarRow button{
+  display: inline;
 }

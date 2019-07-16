@@ -29,17 +29,14 @@ const cellarSchema = new Schema(
   { timestamps: true }
 );
 
-cellarSchema.virtual("capacity").get(function() {
-  return this.width * this.height;
-});
-
 cellarSchema.pre("save", function(next) {
-  const size = this.capacity;
-  console.log(size);
-  for (let i = 0; i < size; i += 1) {
-    if (!this.bottles[i]) this.bottles[i] = null;
+  this.bottles.splice((this.width * this.height));
+  console.log(this.bottles);
+  for (let i = 0; i < (this.width * this.height); i += 1) {
+    if (!this.bottles[i]) this.bottles.set(i, null);
   }
+
   next();
 });
 
-module.exports = mongoose.model('Cellar', cellarSchema);
+module.exports = mongoose.model("Cellar", cellarSchema);

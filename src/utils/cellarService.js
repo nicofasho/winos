@@ -12,6 +12,18 @@ function cellarIndex() {
   }).then(res => res.json()).catch(err => console.log(err));
 }
 
+function cellarUpdate(cellar) {
+  return fetch(BASE_URL + cellar.id, {
+    method: 'PUT',
+    headers: new Headers ({
+      "Content-Type": "application/json",
+      "Authorization": "Bearer " + tokenService.getToken()
+    }),
+    body: JSON.stringify(cellar)
+  }).then(res => res.json()).catch(err => console.log(err));
+}
+
 export default {
-  cellarIndex
+  cellarIndex,
+  cellarUpdate
 };

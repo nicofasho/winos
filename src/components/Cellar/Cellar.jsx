@@ -1,23 +1,36 @@
 import React, { Component } from "react";
-import BottleRow from "../../components/BottleRow/BottleRow";
-import Bottle from '../../components/Bottle/Bottle';
+import Bottle from "../../components/Bottle/Bottle";
 
 class Cellar extends Component {
 
-  generateSingleRow = (idx) => {
-    return <BottleRow key={idx} bottles={this.props.cellar.bottles} />;
-  }
+  generateStyles = () => {
 
-  generateBottleRows = () => {
-    for (let i = 1; i <= this.props.cellar.height; i += 1) {
-      this.generateSingleRow(i);
-    }
+    const height = this.props.cellar.height;
+    const width = this.props.cellar.width;
+
+    return {
+      display: "grid",
+      gridTemplateColumns: `repeat(${width}, 1fr)`,
+      gridTemplateRows: `repeat(${height}, 1fr)`,
+      maxWidth: "45%",
+      width: `${width * 75}px`,
+      height: 'auto',
+      gridGap: '10px'
+    };
   }
 
   render() {
+    const height = this.props.cellar.height;
+    const width = this.props.cellar.width;
 
-    const height = this.props.height;
-    const width = this.props.width;
+    const bottles = this.props.cellar.bottles.map((bottle, idx) => (
+      <Bottle
+        height={height}
+        width={width}
+        bottle={bottle}
+        key={idx}
+      />
+    ));
 
     // const bottles = this.props.cellar.bottles.map((bottle, idx) => {
     //   let remainder = idx % width;
@@ -32,8 +45,8 @@ class Cellar extends Component {
     // console.log(bottles);
 
     return (
-      <div className="Cellar">
-        {this.generateBottleRows()}
+      <div className="Cellar" style={this.generateStyles()} >
+        {bottles}
       </div>
     );
   }

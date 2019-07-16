@@ -5,8 +5,8 @@ import LandingPage from "../../pages/LandingPage/LandingPage";
 import LoginPage from "../../pages/LoginPage/LoginPage";
 import SignupPage from "../../pages/SignupPage/SignupPage";
 import userService from "../../utils/userService";
-import cellarService from '../../utils/cellarService';
-import './App.css';
+import cellarService from "../../utils/cellarService";
+import "./App.css";
 
 class App extends Component {
   constructor(props) {
@@ -17,8 +17,9 @@ class App extends Component {
     };
   }
 
-  async populateCellars() {
-    await cellarService.cellarIndex();
+  async componentDidMount() {
+    const cellars = await cellarService.cellarIndex();
+    this.setState({ cellars });
   }
 
   handleLogout = () => {
@@ -30,9 +31,10 @@ class App extends Component {
     this.setState({ user: userService.getUser() });
   };
 
-  handleUpdateCellars = (cellars) => {
+  handleUpdateCellars = async () => {
+    const cellars = await cellarService.cellarIndex();
     this.setState({ cellars });
-  }
+  };
 
   render() {
     return (
@@ -52,7 +54,7 @@ class App extends Component {
           <Route
             exact
             path="/signup"
-            render={(props) => (
+            render={props => (
               <SignupPage
                 {...props}
                 handleSignupOrLogin={this.handleSignupOrLogin}
@@ -62,7 +64,7 @@ class App extends Component {
           <Route
             exact
             path="/dashboard"
-            render={(props) =>
+            render={props =>
               userService.getUser() ? (
                 <Dashboard
                   {...props}

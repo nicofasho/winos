@@ -1,0 +1,7 @@
+.Bottle {
+  border: black 1px solid;
+  height: auto;
+  width: 100%;
+  padding-top: 100%;
+  border-radius: 50%;
+}

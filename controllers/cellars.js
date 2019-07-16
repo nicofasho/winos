@@ -27,9 +27,24 @@ function createCellar(req, res) {
 }
 
 function updateCellar(req, res) {
-  Cellar.findOneAndUpdate({ _id: req.params.id }, req.body, { new: true })
-    .then(cellar => res.json(cellar))
-    .catch(err => res.status(400).json(err));
+  // Cellar.findOneAndUpdate({ _id: req.params.id }, req.body, { new: true })
+  //   .then(cellar => {
+  //     console.log(cellar);
+  //     return res.json(cellar);
+  //   })
+  //   .catch(err => res.status(400).json(err));
+
+  Cellar.findById(req.params.id, async function(err, cellar) {
+    console.log("cellar: ", cellar);
+    console.log("req.body: ", req.body);
+    cellar = {...req.body};
+    try {
+      await cellar.save();
+      return res.json(cellar);
+    } catch (err) {
+      return res.status(400).json(err);
+    }
+  });
 }
 
 function deleteCellar(req, res) {
