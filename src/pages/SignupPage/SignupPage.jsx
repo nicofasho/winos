@@ -1,6 +1,5 @@
 import React, { Component } from "react";
 import SignupForm from '../../components/SignupForm/SignupForm';
-import { Link } from "react-router-dom";
 
 class SignupPage extends Component {
   constructor(props) {

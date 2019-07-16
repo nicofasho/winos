@@ -23,7 +23,30 @@ function cellarUpdate(cellar) {
   }).then(res => res.json()).catch(err => console.log(err));
 }
 
+function createCellar(cellar) {
+  return fetch(BASE_URL, {
+    method: 'POST',
+    headers: new Headers ({
+      "Content-Type": "application/json",
+      "Authorization": "Bearer " + tokenService.getToken()
+    }),
+    body: JSON.stringify(cellar)
+  }).then(res => res.json()).catch(err => console.log(err));
+}
+
+function deleteCellar(cellarId) {
+  return fetch(BASE_URL + cellarId, {
+    method: 'DELETE',
+    headers: new Headers ({
+      "Content-Type": "application/json",
+      "Authorization": "Bearer " + tokenService.getToken()
+    })
+  }).then(res => res.json()).catch(err => console.log(err));
+}
+
 export default {
   cellarIndex,
-  cellarUpdate
+  cellarUpdate,
+  createCellar,
+  deleteCellar
 };

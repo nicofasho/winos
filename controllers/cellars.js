@@ -27,20 +27,13 @@ function createCellar(req, res) {
 }
 
 function updateCellar(req, res) {
-  // Cellar.findByIdAndUpdate(req.params.id, req.body, { new: true })
-  //   .then(cellar => {
-  //     console.log(cellar);
-  //     return res.json(cellar);
-  //   })
-  //   .catch(err => res.status(400).json(err));
-  
   Cellar.findById(req.params.id)
     .then(async cellar => {
       cellar = Object.assign(cellar, req.body);
       await cellar.save();
       return res.json(cellar);
-    }).catch(err => res.status(400).json(err));
-  
+    })
+    .catch(err => res.status(400).json(err));
 }
 
 function deleteCellar(req, res) {

@@ -3,6 +3,7 @@ import Cellar from "../Cellar/Cellar";
 import BottleForm from "../BottleForm/BottleForm";
 import "./CellarRow.css";
 import CellarForm from "../CellarForm/CellarForm";
+import cellarService from '../../utils/cellarService';
 
 class CellarRow extends Component {
   state = {
@@ -23,13 +24,19 @@ class CellarRow extends Component {
     });
   };
 
+  deleteCellar = async e => {
+    e.preventDefault();
+    cellarService.deleteCellar(this.props.cellar._id);
+    this.props.handleUpdateCellars();
+  }
+
   render() {
     return (
       <div className="CellarRow card">
         <h3 className="card-title">{this.props.cellar.name}</h3>
-        <p onClick={this.showCellarEdit} className="btn btn-primary">
+        <button onClick={this.showCellarEdit} className="btn btn-primary">
           Edit Cellar
-        </p>
+        </button>
         <div>
           <Cellar cellar={this.props.cellar} />
           {this.state.showCellarEdit ? (
@@ -37,13 +44,15 @@ class CellarRow extends Component {
               cellar={this.props.cellar}
               hideForms={this.hideForms}
               handleUpdateCellars={this.props.handleUpdateCellars}
-              hideForms={this.hideForms}
             />
           ) : null}
           {this.state.showBottleInfo ? (
             <BottleForm bottle={this.props.cellar} hideForms={this.hideForms} />
           ) : null}
         </div>
+        <button onClick={this.deleteCellar} className="btn btn-danger">
+          Delete Cellar
+        </button>
       </div>
     );
   }
