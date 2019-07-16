@@ -2,7 +2,7 @@ const express = require("express");
 const router = express.Router();
 const cellarsCtrl = require("../../controllers/cellars");
 
-router.use(require('../../config/auth'));
+// router.use(require('../../config/auth'));
 // Cellar Routes
 router.get("/", cellarsCtrl.cellarIndex);
 router.post("/", cellarsCtrl.createCellar);

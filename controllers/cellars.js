@@ -43,11 +43,8 @@ function deleteCellar(req, res) {
 }
 
 function bottleDetail(req, res) {
-  Cellar.findById(req.params.cellarId)
-    .populate("bottles")
-    .then(cellar => {
-      return res.json(cellar.bottles[req.params.slotId]);
-    })
+  Bottle.findById(req.params.bottleId)
+    .then(bottle => res.json(bottle))
     .catch(err => res.status(400).json(err));
 }
 

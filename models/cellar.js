@@ -31,7 +31,6 @@ const cellarSchema = new Schema(
 
 cellarSchema.pre("save", function(next) {
   this.bottles.splice((this.width * this.height));
-  console.log(this.bottles);
   for (let i = 0; i < (this.width * this.height); i += 1) {
     if (!this.bottles[i]) this.bottles.set(i, null);
   }

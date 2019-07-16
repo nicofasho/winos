@@ -26,9 +26,12 @@ class Cellar extends Component {
     const bottles = this.props.cellar.bottles.map((bottle, idx) => (
       <Bottle
         height={height}
+        slot={idx}
         width={width}
         bottle={bottle}
+        cellarId={this.props.cellar._id}
         key={idx}
+        bottleDetails={this.props.bottleDetails}
       />
     ));
 
