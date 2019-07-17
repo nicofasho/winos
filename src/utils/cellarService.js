@@ -64,7 +64,11 @@ function bottleDetails(cellarId, slotId, bottleId) {
     .catch(err => console.log(err));
 }
 
-function createOrUpdateBottle(cellarId, slotId, bottleId) {
+function createOrUpdateBottle(data, cellarId, slotId, bottleId) {
+  for (let key in data) {
+    if (data[key] === "") delete data[key];
+  }
+
   return fetch(
     `${BASE_URL}${cellarId}/${slotId}/${
       bottleId ? "/bottles/" + bottleId : ''
@@ -73,7 +77,8 @@ function createOrUpdateBottle(cellarId, slotId, bottleId) {
       headers: new Headers({
         "Content-Type": "application/json",
         "Authorization": "Bearer " + tokenService.getToken()
-      })
+      }),
+      body: JSON.stringify(data)
     })
       .then(res => res.json()).catch(err => console.log(err));
 }

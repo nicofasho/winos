@@ -58,6 +58,7 @@ class CellarRow extends Component {
                 hideForms={this.hideForms}
                 cellarId={this.props.cellar._id}
                 slot={this.state.selBottleSlot}
+                handleUpdateCellars={this.props.handleUpdateCellars}
               />
             ) : null}
           </div>

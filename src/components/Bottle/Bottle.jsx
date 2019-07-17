@@ -6,7 +6,7 @@ class Bottle extends Component {
 
   handleBottleClick = async e => {
     // console.log(`bottle slot: ${this.props.slot} clicked`)
-    const bottleInfo = this.props.bottle ? await cellarService.bottleDetails(this.props.cellarId, this.props.slot, this.props.bottle._id) : null ;
+    const bottleInfo = this.props.bottle ? await cellarService.bottleDetails(this.props.cellarId, this.props.slot, this.props.bottle._id) : '' ;
     this.props.bottleDetails(bottleInfo, this.props.slot);
   }
 

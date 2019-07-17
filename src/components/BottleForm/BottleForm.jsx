@@ -3,13 +3,6 @@ import cellarService from "../../utils/cellarService";
 
 class BottleForm extends Component {
   state = {
-    name: "",
-    year: "",
-    country: "",
-    type: "",
-    color: "",
-    winery: "",
-    bestTemperature: "",
     slot: this.props.slot
   };
 
@@ -40,13 +33,15 @@ class BottleForm extends Component {
   handleSubmit = async e => {
     e.preventDefault();
     try {
-      (this.props.bottle)
+      this.props.bottle
         ? await cellarService.createOrUpdateBottle(
+            this.state,
             this.props.cellarId,
             this.props.slot,
             this.props.bottle._id
           )
         : await cellarService.createOrUpdateBottle(
+            this.state,
             this.props.cellarId,
             this.props.slot
           );

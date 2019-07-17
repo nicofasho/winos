@@ -6,7 +6,8 @@ function cellarIndex(req, res) {
   User.findById(req.user._id)
     .populate({
       path: "cellars",
-      populate: { path: "bottles" }
+      options: { retainNullValues: true },
+      populate: { path: "bottles", options: {retainNullValues: true} }
     })
     .then(user => res.status(200).json(user.cellars))
     .catch(err => res.status(400).json(err));
@@ -28,6 +29,7 @@ function createCellar(req, res) {
 
 function updateCellar(req, res) {
   Cellar.findById(req.params.id)
+    .populate({ path: "bottles", options: { retainNullValues: true } })
     .then(async cellar => {
       cellar = Object.assign(cellar, req.body);
       await cellar.save();
@@ -50,6 +52,7 @@ function bottleDetail(req, res) {
 
 function updateBottle(req, res) {
   Cellar.findById(req.params.cellarId)
+    .populate({path: 'bottles', options: {retainNullValues: true}})
     .then(cellar => {
       Bottle.findOneAndUpdate({ _id: req.params.bottleId }, req.body, {
         new: true
@@ -82,8 +85,9 @@ async function createBottle(req, res) {
   try {
     await bottle.save();
     Cellar.findById(req.params.cellarId)
+      .populate({ path: "bottles", options: { retainNullValues: true } })
       .then(async cellar => {
-        cellar.bottles.set(req.params.slotId, bottle);
+        await cellar.bottles.set(req.params.slotId, bottle);
         await cellar.save();
         return res.json(cellar);
       })
