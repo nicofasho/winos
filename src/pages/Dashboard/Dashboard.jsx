@@ -10,7 +10,7 @@ class Dashboard extends Component {
     newCellarForm: false
   };
 
-  componentDidMount() {
+  async componentDidMount() {
     this.props.handleUpdateCellars();
   };
 

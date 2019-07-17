@@ -17,10 +17,7 @@ class App extends Component {
     };
   }
 
-  async componentDidMount() {
-    const cellars = await cellarService.cellarIndex();
-    this.setState({ cellars });
-  }
+  
 
   handleLogout = () => {
     userService.logout();
