@@ -14,14 +14,16 @@ class CellarRow extends Component {
   };
 
   bottleDetails = (bottle, slot) => {
+    this.hideForms();
     this.setState({
-      selBottle: bottle,
+      selBottle: bottle ? bottle : null,
       selBottleSlot: slot,
       showBottleForm: true
     });
   };
 
   showCellarEdit = () => {
+    this.hideForms();
     this.setState({ showCellarEdit: true });
   };
 
@@ -41,10 +43,14 @@ class CellarRow extends Component {
   render() {
     return (
       <div className="CellarRow card">
-        <h3 className="card-title">{this.props.cellar.name}</h3>
         <div className="card-body">
-          <div>
-            <Cellar cellar={this.props.cellar} bottleDetails={this.bottleDetails} />
+          <h3 className="card-title">{this.props.cellar.name}</h3>
+          <div className="row">
+            <Cellar
+              cellar={this.props.cellar}
+              bottleDetails={this.bottleDetails}
+              hideForms={this.hideForms}
+            />
             {this.state.showCellarEdit ? (
               <CellarForm
                 cellar={this.props.cellar}
@@ -64,11 +70,14 @@ class CellarRow extends Component {
           </div>
           <button
             onClick={this.showCellarEdit}
-            className="btn btn-outline-secondary"
+            className="btn btn-outline-secondary d-block"
           >
             Edit Cellar
           </button>
-          <button onClick={this.deleteCellar} className="btn btn-danger">
+          <button
+            onClick={this.deleteCellar}
+            className="btn btn-danger d-block mt-3"
+          >
             Delete Cellar
           </button>
         </div>

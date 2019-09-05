@@ -14,41 +14,25 @@ class Cellar extends Component {
       gridTemplateRows: `repeat(${height}, 1fr)`,
       maxWidth: "45%",
       width: `${width * 75}px`,
-      height: 'auto',
+      height: '100%',
       gridGap: '10px'
     };
   }
 
   render() {
-    const height = this.props.cellar.height;
-    const width = this.props.cellar.width;
-
     const bottles = this.props.cellar.bottles.map((bottle, idx) => (
       <Bottle
-        height={height}
         slot={idx}
-        width={width}
         bottle={bottle}
         cellarId={this.props.cellar._id}
         key={idx}
         bottleDetails={this.props.bottleDetails}
+        hideForms={this.props.hideForms}
       />
     ));
 
-    // const bottles = this.props.cellar.bottles.map((bottle, idx) => {
-    //   let remainder = idx % width;
-    //   if (remainder === 0) {
-    //     return `<div className="bottleRow"><Bottle key=${idx} bottle=${bottle} />`;
-    //   }
-    //   if (remainder === width - 1) {
-    //     return `<Bottle key=${idx} bottle=${bottle} /></div>`;
-    //   }
-    //   return `<Bottle key=${idx} bottle=${bottle} />`;
-    // }).join('');
-    // console.log(bottles);
-
     return (
-      <div className="Cellar" style={this.generateStyles()} >
+      <div className="Cellar mb-4 col" style={this.generateStyles()} >
         {bottles}
       </div>
     );

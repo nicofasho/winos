@@ -29,7 +29,7 @@ class CellarForm extends Component {
 
   render() {
     return (
-      <div>
+      <div className='col'>
         <h3>Edit {this.props.cellar.name}</h3>
         <form>
           <label htmlFor="name">Name: </label>
@@ -64,12 +64,12 @@ class CellarForm extends Component {
           <button onClick={this.handleSubmit} className="btn btn-primary">
             Submit
           </button>
-          <p
+          <button
             onClick={this.props.hideForms}
-            className="btn btn-secondary btn-outline"
+            className="btn btn-outline-secondary"
           >
             Cancel
-          </p>
+          </button>
         </form>
       </div>
     );
